@@ -3,6 +3,8 @@ const user = require('../services/user');
 
 const router = express.Router();
 
-router.get('/', async (_, res) => res.send(await user.getByCPF()));
+router.get('/:cpf', async ({ params }, res) =>
+  res.send(await user.getByCPF(params.cpf))
+);
 
 module.exports = router;
