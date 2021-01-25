@@ -5,15 +5,17 @@ const { celebrate, Joi, errors, Segments } = require('celebrate');
 const router = express.Router();
 
 router.post('/', celebrate({
-  [Segments.BODY]: Joi.object().keys({
-    user: Joi.object().required().keys({
+  [Segments.BODY]: Joi.object({
+    user: Joi.object({
       name: Joi.string().optional(),
+      phone: Joi.string().optional(),
       email: Joi.string().optional(),
-      photo: Joi.string().optional(),
     }),
   }),
-}), (req, res) =>
-  user
+}, {
+  allowUnknown: true,
+}),
+  (req, res) => user
     .set(res.locals.user.sub, req.body.user)
     .then(result => res.send(result))
 );
