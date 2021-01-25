@@ -1,7 +1,7 @@
 const UserModel = require('../models/user');
 
-function set(user) {
-  return UserModel.updateOne({ cpf: user.cpf }, user, { upsert: true });
+function set(id, user) {
+  return UserModel.updateOne({ id }, user, { upsert: true });
 }
 
 module.exports = {

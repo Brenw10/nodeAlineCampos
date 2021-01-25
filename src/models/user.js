@@ -4,9 +4,10 @@ const collection = 'user';
 
 const UserModel = new mongoose.Schema(
   {
-    cpf: String,
+    id: String,
     name: String,
-    phone: String,
+    email: String,
+    photo: String,
   },
   {
     collection

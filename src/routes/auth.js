@@ -3,12 +3,13 @@ const auth = require('../services/auth')
 
 const router = express.Router();
 
-router.use(async function ({ body }, _, next) {
-  const user = await auth.getUser(body.idToken);
-  if (body.user.id === user.sub) {
+router.use(async function (req, res, next) {
+  const user = await auth.getUser(req.body.idToken);
+  if (user.sub) {
+    res.locals.user = user;
     next();
   } else {
-    res.send(401);
+    res.sendStatus(401);
   }
 });
 
