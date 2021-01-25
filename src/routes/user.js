@@ -8,7 +8,7 @@ router.post('/', celebrate({
   [Segments.BODY]: Joi.object({
     user: Joi.object({
       name: Joi.string().optional(),
-      phone: Joi.string().optional(),
+      photo: Joi.string().optional(),
       email: Joi.string().optional(),
     }),
   }),
