@@ -4,10 +4,10 @@ const COLLECTION_NAME = 'treatment';
 
 const TreatmentModel = new mongoose.Schema(
   {
-    name: String,
-    duration: Number,
-    price: Number,
-    description: String,
+    name: { type: String, required: true },
+    duration: { type: Number, required: true },
+    price: { type: Number, required: true },
+    description: { type: String, required: true },
   },
   {
     COLLECTION_NAME

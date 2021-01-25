@@ -4,11 +4,11 @@ const COLLECTION_NAME = 'user';
 
 const UserModel = new mongoose.Schema(
   {
-    id: String,
-    name: String,
-    email: String,
-    photo: String,
-    admin: { type: Boolean, default: false },
+    id: { type: String, required: true },
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    photo: { type: String, required: true },
+    admin: { type: Boolean, default: false, required: true },
   },
   {
     COLLECTION_NAME

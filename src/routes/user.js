@@ -7,9 +7,9 @@ const router = express.Router();
 router.post('/', celebrate({
   [Segments.BODY]: Joi.object({
     user: Joi.object({
-      name: Joi.string().optional(),
-      photo: Joi.string().optional(),
-      email: Joi.string().optional(),
+      name: Joi.string(),
+      photo: Joi.string(),
+      email: Joi.string(),
     }),
   }),
 }, {
@@ -18,6 +18,7 @@ router.post('/', celebrate({
   (req, res) => user
     .set(res.locals.user.sub, req.body.user)
     .then(result => res.send(result))
+    .catch(err => res.status(400).send(err))
 );
 
 router.use(errors());
