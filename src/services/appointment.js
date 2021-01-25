@@ -7,11 +7,13 @@ async function getAll(sub) {
   const currentUser = await user.get(sub);
   if (currentUser.admin) {
     return AppointmentModel.find()
+      .sort('datetime')
       .populate('treatments')
       .populate('client')
       .exec();
   } else {
     return AppointmentModel.find({ client: currentUser._id })
+      .sort('datetime')
       .populate('treatments')
       .populate('client')
       .exec();
