@@ -6,9 +6,15 @@ const treatment = require('../services/treatment');
 async function getAll(sub) {
   const currentUser = await user.get(sub);
   if (currentUser.admin) {
-    return AppointmentModel.find();
+    return AppointmentModel.find()
+      .populate('treatments')
+      .populate('client')
+      .exec();
   } else {
-    return AppointmentModel.find({ client: currentUser._id });
+    return AppointmentModel.find({ client: currentUser._id })
+      .populate('treatments')
+      .populate('client')
+      .exec();
   }
 }
 

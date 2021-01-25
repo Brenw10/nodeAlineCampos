@@ -2,7 +2,7 @@ const mongoose = require('../config/database');
 
 const COLLECTION_NAME = 'user';
 
-const UserModel = new mongoose.Schema(
+const Schema = new mongoose.Schema(
   {
     id: { type: String, required: true },
     name: { type: String, required: true },
@@ -15,4 +15,4 @@ const UserModel = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model(COLLECTION_NAME, UserModel, COLLECTION_NAME);
+module.exports = mongoose.model(COLLECTION_NAME, Schema, COLLECTION_NAME);

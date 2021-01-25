@@ -2,7 +2,7 @@ const mongoose = require('../config/database');
 
 const COLLECTION_NAME = 'treatment';
 
-const TreatmentModel = new mongoose.Schema(
+const Schema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     duration: { type: Number, required: true },
@@ -14,4 +14,4 @@ const TreatmentModel = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model(COLLECTION_NAME, TreatmentModel, COLLECTION_NAME);
+module.exports = mongoose.model(COLLECTION_NAME, Schema, COLLECTION_NAME);
