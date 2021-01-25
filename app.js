@@ -3,6 +3,7 @@ const cors = require('cors');
 const auth = require('./src/routes/auth');
 const user = require('./src/routes/user');
 const treatment = require('./src/routes/treatment');
+const appointment = require('./src/routes/appointment');
 
 const app = express();
 const port = 3000;
@@ -13,5 +14,6 @@ app.use(auth);
 
 app.use('/user', user);
 app.use('/treatment', treatment);
+app.use('/appointment', appointment);
 
 app.listen(port);
