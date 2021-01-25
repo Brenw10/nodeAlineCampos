@@ -1,6 +1,6 @@
 const mongoose = require('../config/database');
 
-const collection = 'user';
+const COLLECTION_NAME = 'user';
 
 const UserModel = new mongoose.Schema(
   {
@@ -8,10 +8,11 @@ const UserModel = new mongoose.Schema(
     name: String,
     email: String,
     photo: String,
+    admin: { type: Boolean, default: false },
   },
   {
-    collection
+    COLLECTION_NAME
   }
 );
 
-module.exports = mongoose.model(collection, UserModel, collection);
+module.exports = mongoose.model(COLLECTION_NAME, UserModel, COLLECTION_NAME);
