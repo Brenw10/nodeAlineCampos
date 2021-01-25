@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.use(async function (req, res, next) {
   try {
-    const user = await auth.getUser(req.body.idToken);
+    const user = await auth.getUser(req.headers.authorization.split(' ')[1]);
     if (user.sub) {
       res.locals.user = user;
       next();
