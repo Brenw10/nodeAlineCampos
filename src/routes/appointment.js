@@ -15,10 +15,7 @@ router.post('/', celebrate({
   [Segments.BODY]: Joi.object({
     appointment: Joi.object({
       datetime: Joi.string(),
-      duration: Joi.number(),
       treatments: Joi.array(),
-      price: Joi.number(),
-      status: Joi.string()
     }),
   }),
 }, {
