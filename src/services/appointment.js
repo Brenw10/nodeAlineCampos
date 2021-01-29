@@ -5,19 +5,12 @@ const treatment = require('../services/treatment');
 
 async function getAll(sub) {
   const currentUser = await user.get(sub);
-  if (currentUser.admin) {
-    return AppointmentModel.find()
-      .sort('datetime')
-      .populate('treatments')
-      .populate('client')
-      .exec();
-  } else {
-    return AppointmentModel.find({ client: currentUser._id })
-      .sort('datetime')
-      .populate('treatments')
-      .populate('client')
-      .exec();
-  }
+  const find = currentUser.admin ? {} : { client: currentUser._id };
+  return AppointmentModel.find(find)
+    .sort('datetime')
+    .populate('treatments')
+    .populate('client')
+    .exec();
 }
 
 async function create(sub, appointment) {
