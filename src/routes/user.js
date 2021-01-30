@@ -21,6 +21,13 @@ router.post('/', celebrate({
     .catch(err => res.status(400).send(err))
 );
 
+router.get('/', (_, res) =>
+  user
+    .get(res.locals.user.sub)
+    .then(result => res.send(result))
+    .catch(err => res.status(400).send(err))
+);
+
 router.use(errors());
 
 module.exports = router;
