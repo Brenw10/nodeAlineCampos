@@ -27,7 +27,7 @@ router.post('/', celebrate({
     .catch(err => res.status(400).send(err))
 );
 
-router.post('/:_id/status', celebrate({
+router.put('/:_id/status', celebrate({
   [Segments.BODY]: Joi.object({
     status: Joi.string(),
   }),
