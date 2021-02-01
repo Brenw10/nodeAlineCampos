@@ -13,7 +13,7 @@ services:
     ports:
      - "3000:3000"
     volumes:
-      - ./nodeAlineCampos/:/home/app
+      - ./server/:/home/app
       - /home/app/node_modules
     links:
       - mongodb

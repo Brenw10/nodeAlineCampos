@@ -3,7 +3,7 @@ FROM node
 ENV APP=/home/app
 WORKDIR $APP
 
-COPY nodeAlineCampos $APP
+COPY server $APP
 
 RUN npm install
 
