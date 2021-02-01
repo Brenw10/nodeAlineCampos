@@ -1,7 +1,11 @@
 const TreatmentModel = require('../models/treatment');
 
 function getAll() {
-  return TreatmentModel.find();
+  return TreatmentModel
+    .find()
+    .sort({ isFirstType: -1 })
+    .sort('name')
+    .exec();
 }
 
 function getByIds(ids) {
