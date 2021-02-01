@@ -10,6 +10,7 @@ router.post('/', celebrate({
       name: Joi.string(),
       photo: Joi.string(),
       email: Joi.string(),
+      admin: Joi.any().invalid(true)
     }),
   }),
 }, {
