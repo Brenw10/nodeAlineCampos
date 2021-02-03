@@ -8,7 +8,7 @@ async function getAll(sub) {
   const find = currentUser.admin ? {} : { client: currentUser._id };
   return AppointmentModel.find(find)
     .sort('datetime')
-    .populate('treatments')
+    .populate('treatments', '-image')
     .populate('client')
     .exec();
 }
