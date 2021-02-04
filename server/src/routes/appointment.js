@@ -47,10 +47,11 @@ router.get('/freetime', celebrate({
 }, {
   allowUnknown: true,
 }),
-  (req, res) => appointment
-    .getFreeTimes(req.body.date)
-    .then(result => res.send(result))
-    .catch(err => res.status(400).send(err))
+  (req, res) =>
+    appointment
+      .getFreeTimes(req.query.date)
+      .then(result => res.send(result))
+      .catch(err => res.status(400).send(err))
 )
 
 router.use(errors());
