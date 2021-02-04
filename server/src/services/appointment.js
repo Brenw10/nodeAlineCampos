@@ -2,6 +2,7 @@ const AppointmentModel = require('../models/appointment');
 const user = require('../services/user');
 const { STATUS } = require('../constants/appointment');
 const treatment = require('../services/treatment');
+const worktime = require('../services/worktime');
 const moment = require('moment');
 
 async function getAll(sub) {
@@ -34,7 +35,7 @@ async function setStatus(sub, _id, status) {
   return AppointmentModel.updateOne({ _id }, { status }, { runValidators: true });
 }
 
-async function getDay(date) {
+async function getByDateAndStatus(date, status) {
   const startDate = moment(date).startOf('day');
   const endDate = moment(date).endOf('day');
   return AppointmentModel.find({
@@ -42,13 +43,29 @@ async function getDay(date) {
       $gte: startDate,
       $lte: endDate,
     },
-    status: STATUS.ACCEPTED,
-  }).select('datetime');
+    status,
+  });
+}
+
+function getStartEndDate(appointments) {
+  return appointments.map(value => ({
+    startDate: moment(value.datetime),
+    endDate: moment(value.datetime).add(value.duration, 'minute'),
+  }))
+}
+
+async function getFreeTimes(date) {
+  const datetimes = await worktime.getWithDate(date);
+  const dayAppointments = await getByDateAndStatus(date, STATUS.ACCEPTED);
+  const appointments = getStartEndDate(dayAppointments);
+  return datetimes.filter(dt =>
+    !appointments.find(ap => dt.isBetween(ap.startDate, ap.endDate, null, '[]'))
+  );
 }
 
 module.exports = {
   getAll,
   create,
   setStatus,
-  getDay
+  getFreeTimes
 };

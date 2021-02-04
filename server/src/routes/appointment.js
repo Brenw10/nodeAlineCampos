@@ -40,7 +40,7 @@ router.put('/:_id/status', celebrate({
     .catch(err => res.status(400).send(err))
 );
 
-router.get('/day', celebrate({
+router.get('/freetime', celebrate({
   [Segments.BODY]: Joi.object({
     date: Joi.date(),
   }),
@@ -48,7 +48,7 @@ router.get('/day', celebrate({
   allowUnknown: true,
 }),
   (req, res) => appointment
-    .getDay(req.body.date)
+    .getFreeTimes(req.body.date)
     .then(result => res.send(result))
     .catch(err => res.status(400).send(err))
 )
