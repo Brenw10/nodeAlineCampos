@@ -40,6 +40,19 @@ router.put('/:_id/status', celebrate({
     .catch(err => res.status(400).send(err))
 );
 
+router.get('/day', celebrate({
+  [Segments.BODY]: Joi.object({
+    date: Joi.date(),
+  }),
+}, {
+  allowUnknown: true,
+}),
+  (req, res) => appointment
+    .getDay(req.body.date)
+    .then(result => res.send(result))
+    .catch(err => res.status(400).send(err))
+)
+
 router.use(errors());
 
 module.exports = router;

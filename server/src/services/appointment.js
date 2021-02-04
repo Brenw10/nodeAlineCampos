@@ -2,6 +2,7 @@ const AppointmentModel = require('../models/appointment');
 const user = require('../services/user');
 const { STATUS } = require('../constants/appointment');
 const treatment = require('../services/treatment');
+const moment = require('moment');
 
 async function getAll(sub) {
   const currentUser = await user.get(sub);
@@ -33,8 +34,21 @@ async function setStatus(sub, _id, status) {
   return AppointmentModel.updateOne({ _id }, { status }, { runValidators: true });
 }
 
+async function getDay(date) {
+  const startDate = moment(date).startOf('day');
+  const endDate = moment(date).endOf('day');
+  return AppointmentModel.find({
+    datetime: {
+      $gte: startDate,
+      $lte: endDate,
+    },
+    status: STATUS.ACCEPTED,
+  }).select('datetime');
+}
+
 module.exports = {
   getAll,
   create,
   setStatus,
+  getDay
 };
