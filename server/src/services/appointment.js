@@ -56,7 +56,7 @@ function getStartEndDate(appointments) {
 
 async function getFreeTimes(date) {
   const datetimes = await worktime.getWithDate(date);
-  const dayAppointments = await getByDateAndStatus(date, STATUS.ACCEPTED);
+  const dayAppointments = await getByDateAndStatus(date, [STATUS.ACCEPTED, STATUS.CREATED]);
   const appointments = getStartEndDate(dayAppointments);
   return datetimes.filter(dt =>
     !appointments.find(ap => dt.isBetween(ap.startDate, ap.endDate, null, '[]'))
