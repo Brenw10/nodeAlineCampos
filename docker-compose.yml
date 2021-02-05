@@ -10,8 +10,8 @@ services:
     env_file:
      - ./server/.env
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: $${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: $${MONGO_INITDB_ROOT_PASSWORD}
   nodejs:
     container_name: alinecampos_nodejs
     build: ./
