@@ -15,6 +15,10 @@ async function getAll(sub) {
     .exec();
 }
 
+function getById(_id) {
+  return AppointmentModel.findOne({ _id });
+}
+
 async function create(sub, appointment) {
   const currentUser = await user.get(sub);
   const treatments = await treatment.getByIds(appointment.treatments);
@@ -29,9 +33,18 @@ async function create(sub, appointment) {
   return AppointmentModel.create(data);
 }
 
+function isInvalidChangeStatus(currentUser, appointment, status) {
+  const isInvalidNewStatus = status === STATUS.CREATED;
+  const isInvalidAppointment = appointment.status === STATUS.REJECTED;
+  const isNotAnAdmin = status === STATUS.ACCEPTED && !currentUser.admin;
+  return isInvalidNewStatus || isInvalidAppointment || isNotAnAdmin;
+}
+
 async function setStatus(sub, _id, status) {
   const currentUser = await user.get(sub);
-  if (!currentUser.admin) return Promise.reject("You are not an admin");
+  const appointment = await getById(_id);
+  const isInvalid = isInvalidChangeStatus(currentUser, appointment, status);
+  if (isInvalid) return Promise.reject();
   return AppointmentModel.updateOne({ _id }, { status }, { runValidators: true });
 }
 
