@@ -2,7 +2,7 @@ const WorktimeModel = require('../models/worktime');
 const moment = require('moment');
 
 function getAll() {
-  return WorktimeModel.find();
+  return WorktimeModel.find().sort('time');
 }
 
 async function getWithDate(date) {
