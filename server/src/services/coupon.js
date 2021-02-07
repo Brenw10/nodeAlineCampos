@@ -13,7 +13,14 @@ async function remove(sub, _id) {
   return CouponModel.deleteOne({ _id });
 }
 
+async function create(sub, coupon) {
+  const currentUser = await user.get(sub);
+  if (!currentUser.admin) return Promise.reject();
+  return CouponModel.updateOne({ name: coupon.name }, coupon, { upsert: true });
+}
+
 module.exports = {
   getAll,
   remove,
+  create,
 };

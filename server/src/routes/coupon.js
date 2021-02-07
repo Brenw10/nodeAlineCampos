@@ -25,6 +25,23 @@ router.delete('/:_id', celebrate({
       .catch(err => res.status(400).send(err))
 );
 
+router.post('/', celebrate({
+  [Segments.BODY]: Joi.object({
+    coupon: Joi.object({
+      name: Joi.string(),
+      value: Joi.number(),
+    }),
+  }),
+}, {
+  allowUnknown: true,
+}),
+  (req, res) =>
+    coupon
+      .create(res.locals.user.sub, req.body.coupon)
+      .then(result => res.send(result))
+      .catch(err => res.status(400).send(err))
+);
+
 router.use(errors());
 
 module.exports = router;
