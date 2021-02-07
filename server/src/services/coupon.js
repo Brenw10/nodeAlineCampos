@@ -7,6 +7,13 @@ async function getAll(sub) {
   return CouponModel.find();
 }
 
+async function remove(sub, _id) {
+  const currentUser = await user.get(sub);
+  if (!currentUser.admin) return Promise.reject();
+  return CouponModel.deleteOne({ _id });
+}
+
 module.exports = {
   getAll,
+  remove,
 };

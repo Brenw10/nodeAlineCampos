@@ -31,6 +31,9 @@ router.put('/:_id/status', celebrate({
   [Segments.BODY]: Joi.object({
     status: Joi.string(),
   }),
+  [Segments.PARAMS]: Joi.object({
+    _id: Joi.string(),
+  }),
 }, {
   allowUnknown: true,
 }),

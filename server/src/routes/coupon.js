@@ -1,5 +1,6 @@
 const express = require('express');
 const coupon = require('../services/coupon');
+const { celebrate, Joi, errors, Segments } = require('celebrate');
 
 const router = express.Router();
 
@@ -9,5 +10,21 @@ router.get('/', (_, res) =>
     .then(result => res.send(result))
     .catch(err => res.status(400).send(err))
 );
+
+router.delete('/:_id', celebrate({
+  [Segments.PARAMS]: Joi.object({
+    _id: Joi.string(),
+  }),
+}, {
+  allowUnknown: true,
+}),
+  (req, res) =>
+    coupon
+      .remove(res.locals.user.sub, req.params._id)
+      .then(result => res.send(result))
+      .catch(err => res.status(400).send(err))
+);
+
+router.use(errors());
 
 module.exports = router;
