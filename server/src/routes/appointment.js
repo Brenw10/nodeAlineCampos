@@ -14,8 +14,8 @@ router.get('/', (_, res) =>
 router.post('/', celebrate({
   [Segments.BODY]: Joi.object({
     appointment: Joi.object({
-      datetime: Joi.string(),
-      treatments: Joi.array(),
+      datetime: Joi.string().required(),
+      treatments: Joi.array().required(),
       coupon: Joi.string(),
     }),
   }),
@@ -30,10 +30,10 @@ router.post('/', celebrate({
 
 router.put('/:_id/status', celebrate({
   [Segments.BODY]: Joi.object({
-    status: Joi.string(),
+    status: Joi.string().required(),
   }),
   [Segments.PARAMS]: Joi.object({
-    _id: Joi.string(),
+    _id: Joi.string().required(),
   }),
 }, {
   allowUnknown: true,

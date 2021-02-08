@@ -7,9 +7,9 @@ const router = express.Router();
 router.post('/', celebrate({
   [Segments.BODY]: Joi.object({
     user: Joi.object({
-      name: Joi.string(),
-      photo: Joi.string(),
-      email: Joi.string(),
+      name: Joi.string().required(),
+      photo: Joi.string().required(),
+      email: Joi.string().required(),
       admin: Joi.any().invalid(true)
     }),
   }),

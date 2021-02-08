@@ -14,7 +14,7 @@ router.get('/', (_, res) =>
 
 router.get('/:name', celebrate({
   [Segments.PARAMS]: Joi.object({
-    name: Joi.string(),
+    name: Joi.string().required(),
   }),
 }, {
   allowUnknown: true,
@@ -28,7 +28,7 @@ router.get('/:name', celebrate({
 
 router.delete('/:_id', celebrate({
   [Segments.PARAMS]: Joi.object({
-    _id: Joi.string(),
+    _id: Joi.string().required(),
   }),
 }, {
   allowUnknown: true,
@@ -43,8 +43,8 @@ router.delete('/:_id', celebrate({
 router.post('/', celebrate({
   [Segments.BODY]: Joi.object({
     coupon: Joi.object({
-      name: Joi.string(),
-      value: Joi.number(),
+      name: Joi.string().required(),
+      value: Joi.number().required(),
     }),
   }),
 }, {
