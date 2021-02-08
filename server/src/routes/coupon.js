@@ -19,7 +19,7 @@ router.get('/:name', celebrate({
 }, {
   allowUnknown: true,
 }),
-  (_, res) =>
+  (req, res) =>
     coupon
       .getByName(req.params.name)
       .then(result => res.send(result))
