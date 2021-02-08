@@ -12,8 +12,8 @@ const Schema = new mongoose.Schema(
     price: { type: Number, required: true },
     status: { type: String, enum: Object.values(STATUS), default: STATUS.CREATED, required: true },
     coupon: {
-      name: { type: String, required: true },
-      value: { type: Number, required: true },
+      name: String,
+      value: Number,
     }
   },
   {
