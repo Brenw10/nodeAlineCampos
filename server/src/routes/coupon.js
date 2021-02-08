@@ -11,6 +11,21 @@ router.get('/', (_, res) =>
     .catch(err => res.status(400).send(err))
 );
 
+
+router.get('/:name', celebrate({
+  [Segments.PARAMS]: Joi.object({
+    name: Joi.string(),
+  }),
+}, {
+  allowUnknown: true,
+}),
+  (_, res) =>
+    coupon
+      .getByName(req.params.name)
+      .then(result => res.send(result))
+      .catch(err => res.status(400).send(err))
+);
+
 router.delete('/:_id', celebrate({
   [Segments.PARAMS]: Joi.object({
     _id: Joi.string(),

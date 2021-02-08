@@ -19,8 +19,13 @@ async function create(sub, coupon) {
   return CouponModel.updateOne({ name: coupon.name }, coupon, { upsert: true });
 }
 
+function getByName(name) {
+  return CouponModel.findOne({ name });
+}
+
 module.exports = {
   getAll,
   remove,
   create,
+  getByName,
 };
