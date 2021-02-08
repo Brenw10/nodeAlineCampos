@@ -2,6 +2,7 @@ const AppointmentModel = require('../models/appointment');
 const user = require('../services/user');
 const { STATUS } = require('../constants/appointment');
 const treatment = require('../services/treatment');
+const coupon = require('../services/coupon');
 const worktime = require('../services/worktime');
 const moment = require('moment');
 
@@ -20,14 +21,18 @@ function getById(_id) {
 }
 
 async function create(sub, appointment) {
-  const currentUser = await user.get(sub);
-  const treatments = await treatment.getByIds(appointment.treatments);
+  const results = await Promise.all([
+    user.get(sub),
+    treatment.getByIds(appointment.treatments),
+    coupon.getByName(appointment.coupon),
+  ]);
   const data = Object.assign(appointment,
     {
-      client: currentUser._id,
+      client: results[0]._id,
       status: STATUS.CREATED,
-      duration: treatments.reduce((sum, value) => sum + value.duration, 0),
-      price: treatments.reduce((sum, value) => sum + value.price, 0),
+      duration: results[1].reduce((sum, value) => sum + value.duration, 0),
+      price: results[1].reduce((sum, value) => sum + value.price, 0),
+      coupon: results[2],
     }
   );
   return AppointmentModel.create(data);

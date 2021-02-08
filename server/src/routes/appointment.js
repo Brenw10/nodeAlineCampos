@@ -16,6 +16,7 @@ router.post('/', celebrate({
     appointment: Joi.object({
       datetime: Joi.string(),
       treatments: Joi.array(),
+      coupon: Joi.string(),
     }),
   }),
 }, {

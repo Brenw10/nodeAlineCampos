@@ -11,6 +11,10 @@ const Schema = new mongoose.Schema(
     client: { type: mongoose.Types.ObjectId, required: true, ref: 'user' },
     price: { type: Number, required: true },
     status: { type: String, enum: Object.values(STATUS), default: STATUS.CREATED, required: true },
+    coupon: {
+      name: { type: String, required: true },
+      value: { type: Number, required: true },
+    }
   },
   {
     COLLECTION_NAME
