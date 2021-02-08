@@ -9,7 +9,7 @@ const Schema = new mongoose.Schema(
     price: { type: Number, required: true },
     description: { type: String, required: true },
     isFirstType: { type: Boolean, default: false, required: true },
-    image: { type: Buffer },
+    image: String,
   },
   {
     COLLECTION_NAME
